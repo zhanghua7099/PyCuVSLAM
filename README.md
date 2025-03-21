@@ -121,6 +121,9 @@ Proceed to step 2 of [PyCuVSLAM installation](#pycuvslam-installation).
     - [OAK-D Camera Tutorial](docs/tutorial_oakd.md)
     - [RealSense Camera Tutorial](docs/tutorial_realsense.md)
 
+## API Documentation
+
+For detailed API documentation, please refer to the [API Documentation](https://nvlabs.github.io/PyCuVSLAM/api.html) page.
 
 ## Notes about SLAM performance
 The accuracy and robustness of a SLAM system can be effected by many different factors, here is a small list of some of these factors:
@@ -131,9 +134,6 @@ The accuracy and robustness of a SLAM system can be effected by many different f
 - <strong>Resolution</strong> is important. Minimum of 720p is recommended. cuVSLAM can operate on relatively high resolution image streams efficiently due to its CUDA acceleration.
 - <strong>Image quality</strong> is also very important. Make sure you have good lenses, exposure and white balancing that does not clip large parts of the image, and clean the dirt from your lenses. Motion blur can cause issues so make sure your exposure time is short enough to avoid motion blur. If your images are too dark, increase lighting in your environment.
 - <strong>Compute</strong> can effect your SLAM performance. If cuVSLAM does not have enough compute to keep up with the image streams, performance might degrade.
-
-## API Documentation
-Once you've followed the Installation Guide and Getting Started sections, please see the [API documentation](docs/README.md)
 
 ## Issues
 
