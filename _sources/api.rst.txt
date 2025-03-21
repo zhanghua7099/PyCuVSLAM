@@ -1,0 +1,106 @@
+API Reference
+=============
+
+.. module:: cuvslam
+
+This module provides Python bindings for the cuVSLAM library.
+
+Data Structures
+---------------
+
+.. autoclass:: Pose
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: Distortion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: Camera
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: ImuCalibration
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: Rig
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: PoseEstimate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: ImuMeasurement
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: Landmark
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: Observation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: TrackerConfig
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Core Classes
+------------
+
+.. autoclass:: Tracker
+   :show-inheritance:
+
+   .. automethod:: track
+
+   .. automethod:: register_imu_measurement
+
+   .. automethod:: get_last_gravity
+
+   .. automethod:: get_last_observations
+
+   .. automethod:: get_last_landmarks
+
+   .. automethod:: get_final_landmarks
+
+
+Enums
+-----
+
+.. autoclass:: DistortionModel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: TrackerMulticameraMode
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: TrackerOdometryMode
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Functions
+---------
+
+.. autofunction:: get_version
+
+.. autofunction:: set_verbosity
+
+.. autofunction:: warm_up_gpu
