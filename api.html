@@ -9,7 +9,7 @@
   <title>API Reference &mdash; PyCuVSLAM  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=43a1375c" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=47dcf29b" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -17,6 +17,7 @@
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -201,18 +202,18 @@
 <dt class="sig sig-object py" id="cuvslam.Pose">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cuvslam.</span></span><span class="sig-name descname"><span class="pre">Pose</span></span><a class="headerlink" href="#cuvslam.Pose" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Transformation from one frame to another.
-Contains rotation (quaternion in x, y, z, w order) and translation (3-vector).</p>
+<p>Transformation from one frame to another.</p>
+<p>Consists of rotation (quaternion in x, y, z, w order) and translation (3-vector).</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.Pose.rotation">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rotation</span></span><a class="headerlink" href="#cuvslam.Pose.rotation" title="Link to this definition"></a></dt>
-<dd><p>(self) -&gt; numpy.ndarray[dtype=float32, shape=(4)]</p>
+<dd><p>Rotation (quaternion in x, y, z, w order)</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.Pose.translation">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">translation</span></span><a class="headerlink" href="#cuvslam.Pose.translation" title="Link to this definition"></a></dt>
-<dd><p>(self) -&gt; numpy.ndarray[dtype=float32, shape=(3)]</p>
+<dd><p>Translation (3-vector)</p>
 </dd></dl>
 
 </dd></dl>
@@ -221,8 +222,8 @@ Contains rotation (quaternion in x, y, z, w order) and translation (3-vector).</
 <dt class="sig sig-object py" id="cuvslam.Distortion">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cuvslam.</span></span><span class="sig-name descname"><span class="pre">Distortion</span></span><a class="headerlink" href="#cuvslam.Distortion" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Camera distortion model with parameters.
-Supports Pinhole (no distortion), Brown (radial and tangential),Fisheye (equidistant), and Polynomial distortion models.</p>
+<p>Camera distortion model with parameters.</p>
+<p>Supports Pinhole (no distortion), Brown (radial and tangential),Fisheye (equidistant), and Polynomial distortion models.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.Distortion.model">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#cuvslam.Distortion.model" title="Link to this definition"></a></dt>
@@ -241,8 +242,8 @@ Supports Pinhole (no distortion), Brown (radial and tangential),Fisheye (equidis
 <dt class="sig sig-object py" id="cuvslam.Camera">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cuvslam.</span></span><span class="sig-name descname"><span class="pre">Camera</span></span><a class="headerlink" href="#cuvslam.Camera" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Camera parameters.
-Describes intrinsic and extrinsic parameters of a camera and per-camera settings.
+<p>Camera calibration parameters.</p>
+<p>Describes intrinsic and extrinsic parameters of a camera and per-camera settings.
 For camera coordinate system, top left pixel has (0, 0) coordinate (y is down, x is right).</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.Camera.border_bottom">
@@ -271,31 +272,31 @@ For camera coordinate system, top left pixel has (0, 0) coordinate (y is down, x
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.Camera.distortion">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">distortion</span></span><a class="headerlink" href="#cuvslam.Camera.distortion" title="Link to this definition"></a></dt>
-<dd><p>Distortion parameters</p>
+<dd><p>Distortion parameters, see <a class="reference internal" href="#cuvslam.Distortion" title="cuvslam.Distortion"><code class="xref py py-class docutils literal notranslate"><span class="pre">Distortion</span></code></a></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.Camera.focal">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">focal</span></span><a class="headerlink" href="#cuvslam.Camera.focal" title="Link to this definition"></a></dt>
-<dd><p>(self) -&gt; numpy.ndarray[dtype=float32, shape=(2)]</p>
+<dd><p>Focal length (fx, fy)</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.Camera.principal">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">principal</span></span><a class="headerlink" href="#cuvslam.Camera.principal" title="Link to this definition"></a></dt>
-<dd><p>(self) -&gt; numpy.ndarray[dtype=float32, shape=(2)]</p>
+<dd><p>Principal point (cx, cy)</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.Camera.rig_from_camera">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rig_from_camera</span></span><a class="headerlink" href="#cuvslam.Camera.rig_from_camera" title="Link to this definition"></a></dt>
-<dd><p>Transformation from coordinate frame of the camera to frame of the rig</p>
+<dd><p>Transformation from the camera coordinate frame to the rig coordinate frame</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.Camera.size">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#cuvslam.Camera.size" title="Link to this definition"></a></dt>
-<dd><p>(self) -&gt; numpy.ndarray[dtype=int32, shape=(2)]</p>
+<dd><p>Size of the camera (width, height)</p>
 </dd></dl>
 
 </dd></dl>
@@ -308,40 +309,37 @@ For camera coordinate system, top left pixel has (0, 0) coordinate (y is down, x
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.ImuCalibration.accelerometer_noise_density">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">accelerometer_noise_density</span></span><a class="headerlink" href="#cuvslam.ImuCalibration.accelerometer_noise_density" title="Link to this definition"></a></dt>
-<dd><p>Accelerometer noise density in m/(s^2*sqrt(hz))</p>
+<dd><p>Accelerometer noise density in <span class="math notranslate nohighlight">\(m/(s^2*sqrt(hz))\)</span></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.ImuCalibration.accelerometer_random_walk">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">accelerometer_random_walk</span></span><a class="headerlink" href="#cuvslam.ImuCalibration.accelerometer_random_walk" title="Link to this definition"></a></dt>
-<dd><p>Accelerometer random walk in m/(s^3*sqrt(hz))</p>
+<dd><p>Accelerometer random walk in <span class="math notranslate nohighlight">\(m/(s^3*sqrt(hz))\)</span></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.ImuCalibration.frequency">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">frequency</span></span><a class="headerlink" href="#cuvslam.ImuCalibration.frequency" title="Link to this definition"></a></dt>
-<dd><p>IMU frequency in hz</p>
+<dd><p>IMU frequency in <span class="math notranslate nohighlight">\(hz\)</span></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.ImuCalibration.gyroscope_noise_density">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gyroscope_noise_density</span></span><a class="headerlink" href="#cuvslam.ImuCalibration.gyroscope_noise_density" title="Link to this definition"></a></dt>
-<dd><p>Gyroscope noise density in rad/(s*sqrt(hz))</p>
+<dd><p>Gyroscope noise density in <span class="math notranslate nohighlight">\(rad/(s*sqrt(hz))\)</span></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.ImuCalibration.gyroscope_random_walk">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gyroscope_random_walk</span></span><a class="headerlink" href="#cuvslam.ImuCalibration.gyroscope_random_walk" title="Link to this definition"></a></dt>
-<dd><p>Gyroscope random walk in rad/(s^2*sqrt(hz))</p>
+<dd><p>Gyroscope random walk in <span class="math notranslate nohighlight">\(rad/(s^2*sqrt(hz))\)</span></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.ImuCalibration.rig_from_imu">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rig_from_imu</span></span><a class="headerlink" href="#cuvslam.ImuCalibration.rig_from_imu" title="Link to this definition"></a></dt>
-<dd><p>Rig from IMU transformation.
-vRig = rig_from_imu * vImu
-- vImu - vector in IMU coordinate system
-- vRig - vector in rig coordinate system</p>
+<dd><p>Transformation from IMU coordinate frame to the rig coordinate frame</p>
 </dd></dl>
 
 </dd></dl>
@@ -354,13 +352,13 @@ vRig = rig_from_imu * vImu
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.Rig.cameras">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cameras</span></span><a class="headerlink" href="#cuvslam.Rig.cameras" title="Link to this definition"></a></dt>
-<dd><p>List of cameras in the rig</p>
+<dd><p>List of cameras in the rig, see <a class="reference internal" href="#cuvslam.Camera" title="cuvslam.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.Rig.imus">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">imus</span></span><a class="headerlink" href="#cuvslam.Rig.imus" title="Link to this definition"></a></dt>
-<dd><p>List of IMU sensors in the rig (0 or 1 supported)</p>
+<dd><p>List of IMU sensors in the rig (0 or 1 only), see <a class="reference internal" href="#cuvslam.ImuCalibration" title="cuvslam.ImuCalibration"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImuCalibration</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -369,9 +367,9 @@ vRig = rig_from_imu * vImu
 <dt class="sig sig-object py" id="cuvslam.PoseEstimate">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cuvslam.</span></span><span class="sig-name descname"><span class="pre">PoseEstimate</span></span><a class="headerlink" href="#cuvslam.PoseEstimate" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Rig pose estimate from the tracker.
-The rig coordinate space is user-defined and depends on the extrinsic parameters of the cameras.
-The world coordinate space is an arbitrary 3D coordinate frame.</p>
+<p>Rig pose estimate from the tracker.</p>
+<p>The rig coordinate frame is user-defined and depends on the extrinsic parameters of the cameras.
+The world coordinate frame is an arbitrary 3D coordinate frame, corresponding to the rig frame at the start of tracking.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.PoseEstimate.is_valid">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#cuvslam.PoseEstimate.is_valid" title="Link to this definition"></a></dt>
@@ -381,7 +379,7 @@ The world coordinate space is an arbitrary 3D coordinate frame.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.PoseEstimate.pose">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pose</span></span><a class="headerlink" href="#cuvslam.PoseEstimate.pose" title="Link to this definition"></a></dt>
-<dd><p>Transformation from the rig coordinate space to the world coordinate space</p>
+<dd><p>Transformation from the rig coordinate frame to the world coordinate frame</p>
 </dd></dl>
 
 <dl class="py property">
@@ -399,13 +397,13 @@ The world coordinate space is an arbitrary 3D coordinate frame.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.ImuMeasurement.angular_velocities">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">angular_velocities</span></span><a class="headerlink" href="#cuvslam.ImuMeasurement.angular_velocities" title="Link to this definition"></a></dt>
-<dd><p>Angular velocities in rad/s</p>
+<dd><p>Angular velocities in <span class="math notranslate nohighlight">\(rad/s\)</span></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.ImuMeasurement.linear_accelerations">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">linear_accelerations</span></span><a class="headerlink" href="#cuvslam.ImuMeasurement.linear_accelerations" title="Link to this definition"></a></dt>
-<dd><p>Linear accelerations in m/s^2</p>
+<dd><p>Linear accelerations in <span class="math notranslate nohighlight">\(m/s^2\)</span></p>
 </dd></dl>
 
 <dl class="py property">
@@ -479,7 +477,7 @@ The world coordinate space is an arbitrary 3D coordinate frame.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.TrackerConfig.debug_dump_directory">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">debug_dump_directory</span></span><a class="headerlink" href="#cuvslam.TrackerConfig.debug_dump_directory" title="Link to this definition"></a></dt>
-<dd><p>Directory for debug data dumps, if empty, no debug data will be dumped</p>
+<dd><p>Directory for debug data dumps. If empty, no debug data will be dumped</p>
 </dd></dl>
 
 <dl class="py property">
@@ -521,13 +519,13 @@ The world coordinate space is an arbitrary 3D coordinate frame.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.TrackerConfig.multicam_mode">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">multicam_mode</span></span><a class="headerlink" href="#cuvslam.TrackerConfig.multicam_mode" title="Link to this definition"></a></dt>
-<dd><p>Multi-camera mode (Performance/Precision/Moderate)</p>
+<dd><p>See <a class="reference internal" href="#cuvslam.TrackerMulticameraMode" title="cuvslam.TrackerMulticameraMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackerMulticameraMode</span></code></a></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cuvslam.TrackerConfig.odometry_mode">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">odometry_mode</span></span><a class="headerlink" href="#cuvslam.TrackerConfig.odometry_mode" title="Link to this definition"></a></dt>
-<dd><p>Odometry mode (Multicamera/Inertial/Mono)</p>
+<dd><p>See <a class="reference internal" href="#cuvslam.TrackerOdometryMode" title="cuvslam.TrackerOdometryMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackerOdometryMode</span></code></a></p>
 </dd></dl>
 
 <dl class="py property">
@@ -561,13 +559,11 @@ The world coordinate space is an arbitrary 3D coordinate frame.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cuvslam.Tracker.track">
 <span class="sig-name descname"><span class="pre">track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self,</span> <span class="pre">timestamp:</span> <span class="pre">int,</span> <span class="pre">images:</span> <span class="pre">collections.abc.Sequence[ndarray[writable=False]],</span> <span class="pre">masks:</span> <span class="pre">collections.abc.Sequence[ndarray[writable=False]]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cuvslam.PoseEstimate" title="cuvslam.pycuvslam.PoseEstimate"><span class="pre">cuvslam.pycuvslam.PoseEstimate</span></a></span></span><a class="headerlink" href="#cuvslam.Tracker.track" title="Link to this definition"></a></dt>
-<dd><p>Track a rig pose using current frame.
-Synchronously tracks current frame. Returns a PoseEstimate.</p>
+<dd><p>Track a rig pose using current image frame.</p>
+<p>Synchronously tracks current image frame and returns a PoseEstimate.</p>
 <p>By default, this function uses visual odometry to compute a pose.
-If visual odometry tracker fails to compute a pose, the function returns the position
-calculated from a user-provided IMU data.
-If after several calls of Track() visual odometry is not able to recover,
-then invalid pose will be returned.
+In Inertial mode, if visual odometry tracker fails to compute a pose, the function returns the position calculated from a user-provided IMU data.
+If after several calls of <a class="reference internal" href="#cuvslam.Tracker.track" title="cuvslam.Tracker.track"><code class="xref py py-meth docutils literal notranslate"><span class="pre">track()</span></code></a> visual odometry is not able to recover, then invalid pose will be returned.
 The track will output poses in the same coordinate system until a loss of tracking.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -578,7 +574,7 @@ The track will output poses in the same coordinate system until a loss of tracki
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>PoseEstimate object with the computed pose. If tracking fails, is_valid will be False.</p>
+<dd class="field-even"><p><a class="reference internal" href="#cuvslam.PoseEstimate" title="cuvslam.PoseEstimate"><code class="xref py py-class docutils literal notranslate"><span class="pre">PoseEstimate</span></code></a> object with the computed pose. If tracking fails, <cite>is_valid</cite> will be False.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -586,43 +582,41 @@ The track will output poses in the same coordinate system until a loss of tracki
 <dl class="py method">
 <dt class="sig sig-object py" id="cuvslam.Tracker.register_imu_measurement">
 <span class="sig-name descname"><span class="pre">register_imu_measurement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">imu_measurement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cuvslam.ImuMeasurement" title="cuvslam.pycuvslam.ImuMeasurement"><span class="pre">cuvslam.pycuvslam.ImuMeasurement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#cuvslam.Tracker.register_imu_measurement" title="Link to this definition"></a></dt>
-<dd><p>Register an IMU measurement.
-If visual odometry loses camera position, it briefly continues execution
+<dd><p>Register an IMU measurement.</p>
+<p>Requires Inertial mode. If visual odometry loses camera position, it briefly continues execution
 using user-provided IMU measurements while trying to recover the position.
-You should call this function several times between image acquisition.
-IMU measurement and frame image both have timestamps, it is important to call these functions in
-strict ascending order of timestamps.</p>
+Timestamps of IMU measurements and frame images must be synchronized, <a class="reference internal" href="#cuvslam.Tracker.track" title="cuvslam.Tracker.track"><code class="xref py py-meth docutils literal notranslate"><span class="pre">track()</span></code></a> and <a class="reference internal" href="#cuvslam.Tracker.register_imu_measurement" title="cuvslam.Tracker.register_imu_measurement"><code class="xref py py-meth docutils literal notranslate"><span class="pre">register_imu_measurement()</span></code></a> must be called in strict ascending order of timestamps.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cuvslam.Tracker.get_last_gravity">
 <span class="sig-name descname"><span class="pre">get_last_gravity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><span class="pre">object</span></a></span></span><a class="headerlink" href="#cuvslam.Tracker.get_last_gravity" title="Link to this definition"></a></dt>
-<dd><p>Get gravity vector in the last VO frame.
-Returns None if gravity is not yet available.
-Requires odometry_mode=TrackerOdometryMode.Inertial in TrackerConfig.</p>
+<dd><p>Get gravity vector in the last VO frame.</p>
+<p>Returns <cite>None</cite> if gravity is not yet available.
+Requires Inertial mode (<cite>odometry_mode=TrackerOdometryMode.Inertial</cite> in <a class="reference internal" href="#cuvslam.TrackerConfig" title="cuvslam.TrackerConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackerConfig</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cuvslam.Tracker.get_last_observations">
 <span class="sig-name descname"><span class="pre">get_last_observations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cuvslam.Observation" title="cuvslam.pycuvslam.Observation"><span class="pre">cuvslam.pycuvslam.Observation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cuvslam.Tracker.get_last_observations" title="Link to this definition"></a></dt>
-<dd><p>Get an array of observations from the last VO frame.
-Requires enable_observations_export=True in TrackerConfig.</p>
+<dd><p>Get an array of observations from the last VO frame.</p>
+<p>Requires <cite>enable_observations_export=True</cite> in <a class="reference internal" href="#cuvslam.TrackerConfig" title="cuvslam.TrackerConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackerConfig</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cuvslam.Tracker.get_last_landmarks">
 <span class="sig-name descname"><span class="pre">get_last_landmarks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cuvslam.Landmark" title="cuvslam.pycuvslam.Landmark"><span class="pre">cuvslam.pycuvslam.Landmark</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cuvslam.Tracker.get_last_landmarks" title="Link to this definition"></a></dt>
-<dd><p>Get an array of landmarks from the last VO frame.
-Landmarks are 3D points in the last camera frame.
-Requires enable_landmarks_export=True in TrackerConfig.</p>
+<dd><p>Get an array of landmarks from the last VO frame.</p>
+<p>Landmarks are 3D points in the last camera frame.
+Requires <cite>enable_landmarks_export=True</cite> in <a class="reference internal" href="#cuvslam.TrackerConfig" title="cuvslam.TrackerConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackerConfig</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cuvslam.Tracker.get_final_landmarks">
 <span class="sig-name descname"><span class="pre">get_final_landmarks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cuvslam.Tracker.get_final_landmarks" title="Link to this definition"></a></dt>
-<dd><p>Get all final landmarks from all frames.
-Landmarks are 3D points in the odometry start frame.
-Requires enable_final_landmarks_export=True in TrackerConfig.</p>
+<dd><p>Get all final landmarks from all frames.</p>
+<p>Landmarks are 3D points in the odometry start frame.
+Requires <cite>enable_final_landmarks_export=True</cite> in <a class="reference internal" href="#cuvslam.TrackerConfig" title="cuvslam.TrackerConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrackerConfig</span></code></a>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -705,22 +699,22 @@ Requires enable_final_landmarks_export=True in TrackerConfig.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="cuvslam.get_version">
 <span class="sig-prename descclassname"><span class="pre">cuvslam.</span></span><span class="sig-name descname"><span class="pre">get_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cuvslam.get_version" title="Link to this definition"></a></dt>
-<dd><p>Get the version of cuVSLAM library you are using.
-Returns a tuple with the detailed version and major and minor versions.</p>
+<dd><p>Get the version of cuVSLAM library you are using.</p>
+<p>Returns a tuple with the detailed version and major and minor versions.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cuvslam.set_verbosity">
 <span class="sig-prename descclassname"><span class="pre">cuvslam.</span></span><span class="sig-name descname"><span class="pre">set_verbosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#cuvslam.set_verbosity" title="Link to this definition"></a></dt>
-<dd><p>Set the verbosity level of the library.
-Available values: 0 (default) for no output, 1 for error messages, 2 for warnings, 3 for info messages.</p>
+<dd><p>Set the verbosity level of the library.</p>
+<p>Available values: 0 (default) for no output, 1 for error messages, 2 for warnings, 3 for info messages.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cuvslam.warm_up_gpu">
 <span class="sig-prename descclassname"><span class="pre">cuvslam.</span></span><span class="sig-name descname"><span class="pre">warm_up_gpu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#cuvslam.warm_up_gpu" title="Link to this definition"></a></dt>
-<dd><p>Warm up the GPU (CUDA) runtime.
-It is not necessary to call it before the first call to cuvslam, but it can help to reduce the first call latency.</p>
+<dd><p>Warm up the GPU (CUDA runtime).</p>
+<p>It is not necessary to call it before the first call to cuvslam, but it can help to reduce the first call latency.</p>
 </dd></dl>
 
 </section>
