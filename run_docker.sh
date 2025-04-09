@@ -9,6 +9,7 @@ docker run -it \
   --rm \
   --gpus all \
   --privileged \
+  --device=/dev/bus/usb \
   --network host \
   -e NVIDIA_DRIVER_CAPABILITIES=all \
   -e DISPLAY="$DISPLAY" \
