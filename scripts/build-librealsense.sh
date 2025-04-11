@@ -2,11 +2,10 @@
 # Builds the Intel Realsense library librealsense on a Jetson Nano Development Kit
 # Copyright (c) 2016-21 Jetsonhacks 
 # MIT License
-
+PYCUVSLAM_DIRECTORY=${HOME}/PyCuVSLAM
 LIBREALSENSE_DIRECTORY=${HOME}/librealsense
 INSTALL_DIR=$PWD
 NVCC_PATH=/usr/local/cuda/bin/nvcc
-USE_CUDA=false
 
 function usage ()
 {
@@ -32,6 +31,7 @@ eval set -- "$PARSED_ARGUMENTS"
 
 LIBREALSENSE_VERSION=""
 # for a laptop, close this setting. 
+USE_CUDA=false
 NUM_PROCS=""
 
 while :
@@ -81,6 +81,13 @@ green=`tput setaf 2`
 reset=`tput sgr0`
 # e.g. echo "${red}The red tail hawk ${green}loves the green grass${reset}"
 
+if [ ! -d "$PYCUVSLAM_DIRECTORY" ] ; then
+  # clone librealsense
+  cd ${HOME}
+  echo "${green}Cloning librealsense${reset}"
+  git clone https://github.com/NVlabs/PyCuVSLAM.git
+fi
+
 if [ ! -d "$LIBREALSENSE_DIRECTORY" ] ; then
   # clone librealsense
   cd ${HOME}
@@ -123,7 +130,7 @@ export CUDACXX=$NVCC_PATH
 export PATH=${PATH}:/usr/local/cuda/bin
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/cuda/lib64
 
-/usr/bin/cmake ../ -DBUILD_EXAMPLES=true -DFORCE_RSUSB_BACKEND=true -DBUILD_WITH_CUDA="$USE_CUDA" -DCMAKE_BUILD_TYPE=release -DBUILD_PYTHON_BINDINGS=bool:true
+/usr/bin/cmake ../ -DBUILD_EXAMPLES=true -DFORCE_RSUSB_BACKEND=true -DBUILD_WITH_CUDA="$USE_CUDA" -DFORCE_LIBUVC=true -DCMAKE_BUILD_TYPE=release -DBUILD_PYTHON_BINDINGS=bool:true
 
 # The library will be installed in /usr/local/lib, header files in /usr/local/include
 # The demos, tutorials and tests will located in /usr/local/bin.
@@ -174,7 +181,7 @@ cd $LIBREALSENSE_DIRECTORY
 echo "${green}Applying udev rules${reset}"
 # Copy over the udev rules so that camera can be run from user space
 cp config/99-realsense-libusb.rules /etc/udev/rules.d/
-udevadm control --reload-rules && udevadm trigger
+/etc/init.d/udev restart && udevadm trigger
 
 echo "${green}Library Installed${reset}"
 echo " "
@@ -182,6 +189,17 @@ echo " -----------------------------------------"
 echo "The library is installed in /usr/local/lib"
 echo "The header files are in /usr/local/include"
 echo "The demos and tools are located in /usr/local/bin"
+echo " "
+echo " -----------------------------------------"
+echo " "
+
+cd $PYCUVSLAM_DIRECTORY
+pip install -e cuvslam/x86
+pip install -r examples/requirements.txt
+pip install pyrealsense2
+echo " "
+echo " -----------------------------------------"
+echo "PYCUVSLAM is installed!"
 echo " "
 echo " -----------------------------------------"
 echo " "

@@ -10,6 +10,7 @@ docker run -it \
   --gpus all \
   --privileged \
   --network host \
+  --device=/dev/bus/usb \
   -e NVIDIA_DRIVER_CAPABILITIES=all \
   -e DISPLAY="$DISPLAY" \
   -e XAUTHORITY=$XAUTH \

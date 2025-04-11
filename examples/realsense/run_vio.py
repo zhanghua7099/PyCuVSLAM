@@ -73,7 +73,7 @@ pipeline = rs.pipeline()
 # Configure streams for initial setup
 config.enable_stream(rs.stream.infrared, 1, 640, 360, rs.format.y8, 30)
 config.enable_stream(rs.stream.infrared, 2, 640, 360, rs.format.y8, 30)
-config.enable_stream(rs.stream.accel, rs.format.motion_xyz32f, 200)
+config.enable_stream(rs.stream.accel, rs.format.motion_xyz32f, 250)
 config.enable_stream(rs.stream.gyro, rs.format.motion_xyz32f, 200)
 
 # Start pipeline to get intrinsics and extrinsics
@@ -120,7 +120,7 @@ if depth_sensor.supports(rs.option.emitter_enabled):
 # Set up motion pipeline
 motion_pipe = rs.pipeline()
 motion_config = rs.config()
-motion_config.enable_stream(rs.stream.accel, rs.format.motion_xyz32f, 200)
+motion_config.enable_stream(rs.stream.accel, rs.format.motion_xyz32f, 250)
 motion_config.enable_stream(rs.stream.gyro, rs.format.motion_xyz32f, 200)
 
 # Start pipelines
