@@ -17,7 +17,7 @@ RUN apt-get update \
 RUN git lfs install
 RUN pip3 install --upgrade pip
 
-ARG LIBREALSENSE_SOURCE_VERSION=v2.48.0
+ARG LIBREALSENSE_SOURCE_VERSION=v2.55.1
 
 COPY scripts/build-librealsense.sh /opt/realsense/build-librealsense.sh
 COPY scripts/install-realsense-dependencies.sh /opt/realsense/install-realsense-dependencies.sh
