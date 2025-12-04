@@ -139,6 +139,7 @@ class RerunVisualizer:
         observations_main_cam: List[List[vslam.Observation]],
         trajectory: List[np.ndarray],
         timestamp: int,
+        final_landmarks: Optional[List[List[float]]] = None,
         gravity: Optional[np.ndarray] = None
     ) -> None:
         """Visualize current frame state using Rerun.
@@ -150,6 +151,7 @@ class RerunVisualizer:
             observations_main_cam: List of observations for each camera
             trajectory: List of trajectory points
             timestamp: Current timestamp
+            final_landmarks: list of final landmark coordinates
             gravity: Optional gravity vector
         """
         rr.set_time_sequence("frame", frame_id)
@@ -161,8 +163,11 @@ class RerunVisualizer:
             self._log_observations(
                 observations_main_cam[i], images[i], f"camera_{i}"
             )
-            
+        if final_landmarks is not None:
+            rr.log('world/final_landmarks', rr.Points3D(final_landmarks, radii=0.001))
+
         if gravity is not None:
             self._log_gravity(gravity)
             
         rr.log("world/timestamp", rr.TextLog(str(timestamp)))
+

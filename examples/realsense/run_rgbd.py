@@ -24,6 +24,7 @@ WARMUP_FRAMES = 60
 IMAGE_JITTER_THRESHOLD_MS = 35 * 1e6  # 35ms in nanoseconds
 NUM_VIZ_CAMERAS = 2
 
+VIZ_MAP_POINTS = True
 
 def main() -> None:
     """Main function for RGBD tracking."""
@@ -151,12 +152,17 @@ def main() -> None:
                 # Visualize results for color and depth cameras
                 # Same observations for both, since we only have one image
                 observations = tracker.get_last_observations(0)
+
+                # Get final landmarks for visualization
+                landmarks = list(tracker.get_final_landmarks().values()) if VIZ_MAP_POINTS else None
+
                 visualizer.visualize_frame(
                     frame_id=frame_id,
                     images=images,
                     pose=odom_pose,
                     observations_main_cam=[observations, observations],
                     trajectory=trajectory,
+                    final_landmarks=landmarks,
                     timestamp=timestamp
                 )
 
@@ -166,3 +172,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
