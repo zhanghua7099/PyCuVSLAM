@@ -22,10 +22,9 @@ from visualizer import RerunVisualizer
 
 # Constants
 WARMUP_FRAMES = 60
-IMAGE_JITTER_THRESHOLD_MS = 80 * 1e6  # 50ms in nanoseconds
+IMAGE_JITTER_THRESHOLD_MS = 50 * 1e6  # 50ms in nanoseconds
 NUM_VIZ_CAMERAS = 2
 VIZ_MAP_POINTS = True
-depth_scale = 1000.0
 
 def frame_to_bgr_image(frame: VideoFrame) -> Union[Optional[np.array], Any]:
     width = frame.get_width()
@@ -207,12 +206,15 @@ def main() -> None:
                 # Same observations for both, since we only have one image
                 observations = tracker.get_last_observations(0)
 
+                # Get final landmarks for visualization
+                landmarks = list(tracker.get_final_landmarks().values()) if VIZ_MAP_POINTS else None
                 visualizer.visualize_frame(
                     frame_id=frame_id,
                     images=images,
                     pose=odom_pose,
                     observations_main_cam=[observations, observations],
                     trajectory=trajectory,
+                    final_landmarks=landmarks,
                     timestamp=timestamp
                 )
 
